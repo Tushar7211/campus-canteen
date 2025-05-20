@@ -423,7 +423,7 @@ class UIManager {
             ${customizationText ? `<div class="cart-item-customization">${customizationText}</div>` : ''}
           </div>
           <div class="cart-item-controls">
-            <button class="quantity-btn decrease-btn" ${item.quantity <= 1 ? 'disabled' : ''}>
+            <button class="quantity-btn decrease-btn">
               <i class="fas fa-minus"></i>
             </button>
             <span class="cart-item-quantity">${item.quantity}</span>

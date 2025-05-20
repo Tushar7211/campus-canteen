@@ -73,7 +73,7 @@
 body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--gray-800);
-  background-color: var(--gray-50);
+  background-color:#ac5281a8;
   line-height: 1.5;
 }
 
@@ -114,7 +114,7 @@ button {
 
 /* Header Styles */
 .header {
-  background-color: white;
+  background-color: rgb(183, 92, 134);
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
@@ -357,7 +357,7 @@ button {
   min-width: 100px;
   text-align: center;
   padding: var(--spacing-3);
-  background-color: white;
+  background-color: rgb(246, 207, 224);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -365,8 +365,8 @@ button {
 }
 
 .category.active {
-  background-color: var(--orange-500);
-  color: white;
+  background-color:#6f2755;
+  color: rgb(255, 255, 255);
 }
 
 .category:hover:not(.active) {
@@ -405,7 +405,7 @@ button {
 }
 
 .menu-item {
-  background-color: white;
+  background-color: rgba(246, 207, 224, 0.484);
   border-radius: var(--border-radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
