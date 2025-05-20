@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusCanteen – Food Ordering UI for College Cafeteria</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <div class="container-custom">
+        <nav class="navbar">
+          <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <h1>CampusCanteen</h1>
+          </div>
+          <div class="nav-links">
+            <a href="#" class="nav-link active" data-page="menu">Menu</a>
+            <a href="#" class="nav-link" data-page="my-orders">My Orders</a>
+          </div>
+          <div class="cart-icon" id="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cart-count">0</span>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Menu Page -->
+      <section id="menu-page" class="page active">
+        <div class="container-custom">
+          <div class="search-container">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input type="text" id="search-input" placeholder="Search for food...">
+            </div>
+            <div class="filter-container">
+              <button class="filter-btn" id="filter-btn">
+                <i class="fas fa-filter"></i>
+                <span>Filters</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="filters-panel" id="filters-panel">
+            <div class="food-type-filter">
+              <h4>Food Type</h4>
+              <div class="filter-options">
+                <label class="filter-option">
+                  <input type="radio" name="food-type" value="all" checked>
+                  <span>All</span>
+                </label>
+                <label class="filter-option">
+                  <input type="radio" name="food-type" value="veg">
+                  <span>Veg Only</span>
+                </label>
+                <label class="filter-option">
+                  <input type="radio" name="food-type" value="non-veg">
+                  <span>Non-Veg</span>
+                </label>
+              </div>
+            </div>
+            <div class="price-filter">
+              <h4>Price Range</h4>
+              <div class="range-slider">
+                <input type="range" min="0" max="500" value="500" class="price-range" id="price-range">
+                <div class="price-labels">
+                  <span>₹0</span>
+                  <span id="price-value">₹500</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="apply-filters">Apply Filters</button>
+          </div>
+
+          <div class="categories" id="categories">
+            <!-- Categories will be populated by JavaScript -->
+          </div>
+
+          <div class="menu-items" id="menu-items">
+            <!-- Menu items will be populated by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- My Orders Page -->
+      <section id="my-orders-page" class="page">
+        <div class="container-custom">
+          <h2 class="section-title">My Orders</h2>
+          <div class="my-orders-container" id="my-orders-container">
+            <!-- Orders will be populated by JavaScript -->
+            <div class="empty-orders-message" id="empty-orders-message">
+              <i class="fas fa-receipt"></i>
+              <p>You haven't placed any orders yet.</p>
+              <button class="btn btn-primary" id="browse-menu-btn">Browse Menu</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h3>Your Cart</h3>
+          <button class="close-cart" id="close-cart">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+          <!-- Cart items will be populated by JavaScript -->
+        </div>
+        <div class="cart-empty" id="cart-empty">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total-price">₹0</span>
+          </div>
+          <button class="btn btn-primary" id="place-order-btn" disabled>Place Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customization Modal -->
+    <div class="customization-modal" id="customization-modal">
+      <div class="customization-content">
+        <div class="customization-header">
+          <h3>Customize Your Order</h3>
+          <button class="close-customization" id="close-customization">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="customization-body" id="customization-body">
+          <!-- Customization options will be populated by JavaScript -->
+        </div>
+        <div class="customization-footer">
+          <button class="btn btn-secondary" id="cancel-customization">Cancel</button>
+          <button class="btn btn-primary" id="add-to-cart-customized">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="order-confirmation-modal" id="order-confirmation-modal">
+      <div class="order-confirmation-content">
+        <div class="order-success-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Order Placed Successfully!</h3>
+        <p>Your order has been placed successfully. You can track your order in the My Orders section.</p>
+        <div class="order-details" id="order-confirmation-details">
+          <!-- Order details will be populated by JavaScript -->
+        </div>
+        <div class="confirmation-buttons">
+          <button class="btn btn-secondary" id="continue-shopping">Continue Shopping</button>
+          <button class="btn btn-primary" id="view-orders">View My Orders</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <div class="toast-content">
+        <i class="toast-icon"></i>
+        <div class="toast-message"></div>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+  </div>
+
+  <script src="src/js/data.js"></script>
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/cart.js"></script>
+  <script src="src/js/orders.js"></script>
+  <script src="src/js/ui.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+</html>
