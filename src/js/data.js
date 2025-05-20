@@ -107,7 +107,7 @@ const menuItems = [
         type: "Add-ons",
         options: [
           { id: "addon4", name: "Raita", price: 15 },
-          { id: "addon5", name: "Papadum", price: 10 }
+          { id: "addon5", name: "Papad", price: 10 }
         ]
       }
     ]
@@ -318,7 +318,7 @@ const menuItems = [
     name: "Masala Chai",
     description: "Traditional Indian tea brewed with milk and aromatic spices.",
     price: 40,
-    image: "https://images.pexels.com/photos/5946719/pexels-photo-5946719.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://images.pexels.com/photos/2262832/pexels-photo-2262832.jpeg",
     category: "beverages",
     isVeg: true,
     tags: ["hot", "popular"],
