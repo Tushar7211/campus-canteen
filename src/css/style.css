@@ -73,7 +73,7 @@
 body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--gray-800);
-  background-color:#ac5281a8;
+  background-color:#ffffff;
   line-height: 1.5;
 }
 
@@ -114,7 +114,7 @@ button {
 
 /* Header Styles */
 .header {
-  background-color: rgb(183, 92, 134);
+  background-color: #ffec3f;
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
@@ -145,13 +145,16 @@ button {
 }
 
 .nav-links {
-  display: none;
+    display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-left: auto;
 }
 
 @media (min-width: 768px) {
   .nav-links {
+    padding-left: 699px;
     display: flex;
-    align-items: center;
     gap: var(--spacing-6);
   }
 }
@@ -357,7 +360,7 @@ button {
   min-width: 100px;
   text-align: center;
   padding: var(--spacing-3);
-  background-color: rgb(246, 207, 224);
+  background-color: #FFF9C4;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -365,8 +368,8 @@ button {
 }
 
 .category.active {
-  background-color:#6f2755;
-  color: rgb(255, 255, 255);
+  background-color:#ffec3f;
+  color: rgb(0, 0, 0);
 }
 
 .category:hover:not(.active) {
@@ -405,7 +408,7 @@ button {
 }
 
 .menu-item {
-  background-color: rgba(246, 207, 224, 0.484);
+  background-color: #f5f5ff;
   border-radius: var(--border-radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-sm);

@@ -56,8 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add to orders
     orderManager.orders.push(demoOrder);
     orderManager.saveToLocalStorage();
-  }
-  
+  } 
   // Render orders
   ui.renderOrders();
 });
