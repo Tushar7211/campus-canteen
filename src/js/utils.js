@@ -4,7 +4,7 @@
  * @returns {string} - Formatted price
  */
 function formatPrice(price) {
-  return `₹${price}`;
+  return `₹${price.toFixed(2)}`;
 }
 
 /**
@@ -38,10 +38,13 @@ function formatDate(date) {
  */
 function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
+  if (!toast) {
+    console.error('Toast element not found');
+    return;
+  }
   const toastIcon = toast.querySelector('.toast-icon');
   const toastMessage = toast.querySelector('.toast-message');
   
-  // Set icon based on type
   toastIcon.className = 'toast-icon';
   if (type === 'success') {
     toastIcon.classList.add('fas', 'fa-check-circle', 'success');
@@ -49,13 +52,8 @@ function showToast(message, type = 'success') {
     toastIcon.classList.add('fas', 'fa-exclamation-circle', 'error');
   }
   
-  // Set message
   toastMessage.textContent = message;
-  
-  // Show toast
   toast.classList.add('show');
-  
-  // Hide toast after 3 seconds
   setTimeout(() => {
     toast.classList.remove('show');
   }, 3000);
@@ -67,6 +65,7 @@ function showToast(message, type = 'success') {
  * @param {boolean} force - Force state
  */
 function toggleElementActive(element, force) {
+  if (!element) return;
   if (force !== undefined) {
     if (force) {
       element.classList.add('active');
@@ -84,18 +83,24 @@ function toggleElementActive(element, force) {
  * @returns {string} - Formatted customization text
  */
 function parseCustomizations(cartItem) {
-  if (!cartItem.customizations || Object.keys(cartItem.customizations).length === 0) {
+  if (!cartItem || !cartItem.customizations || Object.keys(cartItem.customizations).length === 0) {
     return '';
   }
-  
-  let customizationText = '';
-  
-  Object.entries(cartItem.customizations).forEach(([type, option]) => {
-    customizationText += `${option.name}, `;
-  });
-  
-  // Remove trailing comma and space
-  return customizationText.slice(0, -2);
+
+  return Object.entries(cartItem.customizations)
+    .map(([type, value]) => {
+      if (Array.isArray(value)) {
+        return value
+          .filter(opt => opt && opt.name && Number.isFinite(opt.price))
+          .map(opt => `${type}: ${opt.name} (+₹${opt.price})`)
+          .join(', ');
+      } else if (value && value.name && Number.isFinite(value.price)) {
+        return `${type}: ${value.name} (+₹${value.price})`;
+      }
+      return '';
+    })
+    .filter(text => text)
+    .join(', ');
 }
 
 /**
@@ -104,19 +109,28 @@ function parseCustomizations(cartItem) {
  * @returns {number} - Total price
  */
 function calculateItemTotal(cartItem) {
-  let totalPrice = cartItem.price;
-  
-  // Add customization prices
+  if (!cartItem || !Number.isFinite(cartItem.price) || !Number.isFinite(cartItem.quantity)) {
+    console.warn('Invalid cart item:', cartItem);
+    return 0;
+  }
+
+  let total = cartItem.price * cartItem.quantity;
+
   if (cartItem.customizations) {
-    Object.values(cartItem.customizations).forEach(option => {
-      totalPrice += option.price || 0;
+    Object.values(cartItem.customizations).forEach(value => {
+      if (Array.isArray(value)) {
+        value.forEach(option => {
+          if (option && Number.isFinite(option.price)) {
+            total += option.price * cartItem.quantity;
+          }
+        });
+      } else if (value && Number.isFinite(value.price)) {
+        total += value.price * cartItem.quantity;
+      }
     });
   }
-  
-  // Multiply by quantity
-  totalPrice *= cartItem.quantity;
-  
-  return totalPrice;
+
+  return total;
 }
 
 /**
@@ -136,30 +150,22 @@ function getRandomOrderStatus() {
  */
 function filterMenuItems(items, filters) {
   return items.filter(item => {
-    // Filter by category
     if (filters.category && filters.category !== 'all' && item.category !== filters.category) {
       return false;
     }
-    
-    // Filter by search term
     if (filters.searchTerm && !item.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) && 
         !item.description.toLowerCase().includes(filters.searchTerm.toLowerCase())) {
       return false;
     }
-    
-    // Filter by food type (veg/non-veg)
     if (filters.foodType === 'veg' && !item.isVeg) {
       return false;
     }
     if (filters.foodType === 'non-veg' && item.isVeg) {
       return false;
     }
-    
-    // Filter by price
     if (filters.maxPrice && item.price > filters.maxPrice) {
       return false;
     }
-    
     return true;
   });
 }
