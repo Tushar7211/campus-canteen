@@ -12,7 +12,7 @@ const menuItems = [
   {
     id: "item1",
     name: "Breakfast Burrito",
-    description: "Scrambled eggs, cheese, potatoes, and your choice of bacon or sausage wrapped in a warm tortilla.",
+    description: "Scrambled eggs, cheese, potatoes, and your choice Chicken egg or veggies wrapped in a warm tortilla.",
     price: 120,
     image: "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "breakfast",
@@ -22,17 +22,18 @@ const menuItems = [
       {
         type: "Protein",
         options: [
-          { id: "protein1", name: "Bacon", price: 20 },
-          { id: "protein2", name: "Sausage", price: 20 },
-          { id: "protein3", name: "No Meat (Vegetarian)", price: 0 }
+          { id: "protein1", name: "Chicken", price: 30 },
+          { id: "protein2", name: "Egg", price: 20 },
+          { id: "protein3", name: "No Meat (Vegetarian)", price: 0, default:true }
         ]
       },
       {
         type: "Extras",
         options: [
           { id: "extra1", name: "Extra Cheese", price: 15 },
-          { id: "extra2", name: "Avocado", price: 25 },
-          { id: "extra3", name: "Salsa", price: 10 }
+          { id: "extra3", name: "Mayonnaise dip", price: 20 },
+          { id: "extra2", name: "Tandoori dip", price: 25 }
+          
         ]
       }
     ]
@@ -70,7 +71,7 @@ const menuItems = [
       {
         type: "Dressing",
         options: [
-          { id: "dressing1", name: "Regular Caesar", price: 0 },
+          { id: "dressing1", name: "Regular Caesar", price: 0, default:true },
           { id: "dressing2", name: "Light Caesar", price: 0 },
           { id: "dressing3", name: "Dressing on Side", price: 0 }
         ]
@@ -78,8 +79,8 @@ const menuItems = [
       {
         type: "Extras",
         options: [
-          { id: "extra4", name: "Extra Chicken", price: 30 },
-          { id: "extra5", name: "Extra Parmesan", price: 15 },
+          { id: "extra4", name: "Extra Chicken", price: 15 },
+          { id: "extra5", name: "Extra Parmesan", price: 20 },
           { id: "extra6", name: "Avocado", price: 25 }
         ]
       }
@@ -98,7 +99,7 @@ const menuItems = [
       {
         type: "Spice Level",
         options: [
-          { id: "spice1", name: "Mild", price: 0 },
+          { id: "spice1", name: "Mild", price: 0, default:true },
           { id: "spice2", name: "Medium", price: 0 },
           { id: "spice3", name: "Spicy", price: 0 }
         ]
@@ -125,9 +126,10 @@ const menuItems = [
       {
         type: "Toppings",
         options: [
-          { id: "topping1", name: "Extra Cheese", price: 20 },
-          { id: "topping2", name: "Guacamole", price: 25 },
-          { id: "topping3", name: "Pico de Gallo", price: 15 }
+          { id: "topping1", name: "Extra Cheese", price: 20,},
+          { id: "topping2", name: "Sour Cream", price: 25 },
+          { id: "topping3", name: "Green Onions", price: 15 },
+          { id: "topping4", name: "No extra toppings",default:true }
         ]
       }
     ]
@@ -145,14 +147,14 @@ const menuItems = [
       {
         type: "Size",
         options: [
-          { id: "size1", name: "Regular", price: 0 },
+          { id: "size1", name: "Regular", price: 0,default:true },
           { id: "size2", name: "Large", price: 30 }
         ]
       },
       {
         type: "Seasoning",
         options: [
-          { id: "seasoning1", name: "Plain Salt", price: 0 },
+          { id: "seasoning1", name: "Plain Salt", price: 0,default:true },
           { id: "seasoning2", name: "Peri-Peri", price: 10 },
           { id: "seasoning3", name: "Cheese Dust", price: 15 }
         ]
@@ -160,7 +162,7 @@ const menuItems = [
       {
         type: "Dips",
         options: [
-          { id: "dip1", name: "Ketchup", price: 0 },
+          { id: "dip1", name: "Ketchup", price: 0,default:true },
           { id: "dip2", name: "Mayonnaise", price: 10 },
           { id: "dip3", name: "Chipotle Sauce", price: 15 }
         ]
@@ -170,7 +172,7 @@ const menuItems = [
   {
     id: "item7",
     name: "Classic Burger",
-    description: "Juicy beef patty with lettuce, tomato, onion, and our special sauce in a toasted bun.",
+    description: "Juicy Chicken patty with lettuce, tomato, onion, and our special sauce in a toasted bun.",
     price: 150,
     image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "lunch",
@@ -181,7 +183,7 @@ const menuItems = [
         type: "Add-ons",
         options: [
           { id: "addon6", name: "Cheese", price: 15 },
-          { id: "addon7", name: "Bacon", price: 25 },
+          { id: "addon7", name: "Extra Sauces", price: 25 },
           { id: "addon8", name: "Extra Patty", price: 40 }
         ]
       },
@@ -207,7 +209,7 @@ const menuItems = [
       {
         type: "Milk",
         options: [
-          { id: "milk1", name: "Regular", price: 0 },
+          { id: "milk1", name: "Regular", price: 0,default:true },
           { id: "milk2", name: "Almond", price: 20 },
           { id: "milk3", name: "Oat", price: 20 }
         ]
@@ -215,7 +217,7 @@ const menuItems = [
       {
         type: "Size",
         options: [
-          { id: "size3", name: "Small", price: 0 },
+          { id: "size3", name: "Small", price: 0,default:true },
           { id: "size4", name: "Medium", price: 15 },
           { id: "size5", name: "Large", price: 30 }
         ]
@@ -223,7 +225,7 @@ const menuItems = [
       {
         type: "Extras",
         options: [
-          { id: "extra7", name: "Extra Shot", price: 20 },
+          { id: "extra7", name: "Maple syrup", price: 15 },
           { id: "extra8", name: "Vanilla Syrup", price: 15 },
           { id: "extra9", name: "Caramel Syrup", price: 15 }
         ]
@@ -235,7 +237,7 @@ const menuItems = [
     name: "Mango Smoothie",
     description: "Fresh mango blended with yogurt and a hint of honey.",
     price: 100,
-    image: "https://images.pexels.com/photos/1028714/pexels-photo-1028714.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://images.pexels.com/photos/2113915/pexels-photo-2113915.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "beverages",
     isVeg: true,
     tags: ["cold", "refreshing"],
@@ -243,7 +245,7 @@ const menuItems = [
       {
         type: "Base",
         options: [
-          { id: "base1", name: "Yogurt", price: 0 },
+          { id: "base1", name: "Yogurt", price: 0,default:true },
           { id: "base2", name: "Almond Milk", price: 20 },
           { id: "base3", name: "Coconut Milk", price: 20 }
         ]
@@ -251,9 +253,9 @@ const menuItems = [
       {
         type: "Add-ins",
         options: [
-          { id: "addin1", name: "Chia Seeds", price: 15 },
-          { id: "addin2", name: "Protein Powder", price: 25 },
-          { id: "addin3", name: "Spinach", price: 10 }
+          { id: "addin1", name: "Vanilla Ice Cream", price: 15 },
+          { id: "addin2", name: "Choclate Ice Cream", price: 20 },
+          { id: "addin3", name: "Mango Ice Cream", price: 20 }
         ]
       }
     ]
@@ -271,7 +273,7 @@ const menuItems = [
       {
         type: "Quantity",
         options: [
-          { id: "quantity1", name: "2 Cookies", price: 0 },
+          { id: "quantity1", name: "2 Cookies", price: 0,default:true },
           { id: "quantity2", name: "4 Cookies", price: 60 },
           { id: "quantity3", name: "6 Cookies", price: 120 }
         ]
@@ -298,15 +300,15 @@ const menuItems = [
       {
         type: "Bread",
         options: [
-          { id: "bread1", name: "White Bread", price: 0 },
+          { id: "bread1", name: "White Bread", price: 0,default:true },
           { id: "bread2", name: "Brown Bread", price: 10 },
-          { id: "bread3", name: "Multigrain", price: 15 }
+          { id: "bread3", name: "Multigrain Bread", price: 15 }
         ]
       },
       {
         type: "Spice Level",
         options: [
-          { id: "spice4", name: "Mild", price: 0 },
+          { id: "spice4", name: "Mild", price: 0,default:true },
           { id: "spice5", name: "Medium", price: 0 },
           { id: "spice6", name: "Spicy", price: 0 }
         ]
@@ -326,7 +328,7 @@ const menuItems = [
       {
         type: "Sweetness",
         options: [
-          { id: "sweet1", name: "Regular", price: 0 },
+          { id: "sweet1", name: "Regular", price: 0,default:true },
           { id: "sweet2", name: "Less Sweet", price: 0 },
           { id: "sweet3", name: "No Sugar", price: 0 }
         ]
@@ -334,7 +336,7 @@ const menuItems = [
       {
         type: "Size",
         options: [
-          { id: "size6", name: "Small", price: 0 },
+          { id: "size6", name: "Small", price: 0,default:true },
           { id: "size7", name: "Medium", price: 15 },
           { id: "size8", name: "Large", price: 25 }
         ]

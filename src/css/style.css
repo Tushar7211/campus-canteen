@@ -153,7 +153,7 @@ button {
 
 @media (min-width: 768px) {
   .nav-links {
-    padding-left: 699px;
+    justify-content: flex-end;
     display: flex;
     gap: var(--spacing-6);
   }

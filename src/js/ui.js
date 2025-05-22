@@ -318,63 +318,114 @@ class UIManager {
    */
   showCustomizationModal(item) {
     this.currentItem = item;
-    this.currentCustomizations = {};
-    
-    // Set modal content
-    this.customizationBodyElement.innerHTML = '';
-    
-    item.customizationOptions.forEach(customizationGroup => {
-      const sectionElement = document.createElement('div');
-      sectionElement.className = 'customization-section';
-      sectionElement.innerHTML = `
-        <h4>${customizationGroup.type}</h4>
-        <div class="customization-options" data-type="${customizationGroup.type}">
-          ${customizationGroup.options.map(option => `
-            <div class="customization-option" data-option-id="${option.id}">
-              <div class="customization-option-info">
-                <input type="radio" name="${customizationGroup.type}" id="${option.id}">
-                <label for="${option.id}">${option.name}</label>
-              </div>
-              <div class="customization-option-price">${option.price > 0 ? `+${formatPrice(option.price)}` : ''}</div>
+  this.currentCustomizations = {};
+
+  // Set modal content
+  this.customizationBodyElement.innerHTML = '';
+
+  item.customizationOptions.forEach(customizationGroup => {
+    const sectionElement = document.createElement('div');
+    sectionElement.className = 'customization-section';
+    sectionElement.innerHTML = `
+      <h4>${customizationGroup.type}</h4>
+      <div class="customization-options" data-type="${customizationGroup.type}">
+        ${customizationGroup.options.map(option => `
+          <div class="customization-option" data-option-id="${option.id}">
+            <div class="customization-option-info">
+              <input type="${customizationGroup.type === 'Extras' || customizationGroup.type === 'Add-ons' ? 'checkbox' : 'radio'}" 
+                     name="${customizationGroup.type}" 
+                     id="${option.id}" 
+                     ${option.default ? 'checked' : ''}>
+              <label for="${option.id}">${option.name}</label>
             </div>
-          `).join('')}
-        </div>
-      `;
-      
-      this.customizationBodyElement.appendChild(sectionElement);
+            <div class="customization-option-price">${option.price > 0 ? `+${formatPrice(option.price)}` : ''}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    this.customizationBodyElement.appendChild(sectionElement);
+
+    // Pre-select default options and update currentCustomizations
+    customizationGroup.options.forEach(option => {
+      if (option.default) {
+        this.currentCustomizations[customizationGroup.type] = {
+          id: option.id,
+          name: option.name,
+          price: option.price
+        };
+        // Add 'selected' class to the corresponding option element
+        const optionElement = document.querySelector(`.customization-option[data-option-id="${option.id}"]`);
+        if (optionElement) {
+          optionElement.classList.add('selected');
+        }
+      }
     });
-    
-    // Add event listeners to options
-    document.querySelectorAll('.customization-option').forEach(optionElement => {
-      optionElement.addEventListener('click', () => {
-        const type = optionElement.closest('.customization-options').dataset.type;
-        const optionId = optionElement.dataset.optionId;
-        
+  });
+
+  // Add event listeners to options
+  document.querySelectorAll('.customization-option').forEach(optionElement => {
+    optionElement.addEventListener('click', () => {
+      const type = optionElement.closest('.customization-options').dataset.type;
+      const optionId = optionElement.dataset.optionId;
+
+      // For radio buttons (single-select)
+      if (optionElement.querySelector('input[type="radio"]')) {
         // Update selection in UI
         document.querySelectorAll(`.customization-options[data-type="${type}"] .customization-option`).forEach(el => {
           el.classList.remove('selected');
         });
         optionElement.classList.add('selected');
-        
+
         // Check the radio button
         const radioInput = optionElement.querySelector('input[type="radio"]');
         radioInput.checked = true;
-        
+
         // Update current customizations
         const option = item.customizationOptions
           .find(group => group.type === type)
           .options.find(opt => opt.id === optionId);
-        
+
         this.currentCustomizations[type] = {
           id: option.id,
           name: option.name,
           price: option.price
         };
-      });
+      } else if (optionElement.querySelector('input[type="checkbox"]')) {
+        // For checkboxes (multi-select, e.g., Extras, Add-ons)
+        const checkboxInput = optionElement.querySelector('input[type="checkbox"]');
+        checkboxInput.checked = !checkboxInput.checked;
+        optionElement.classList.toggle('selected', checkboxInput.checked);
+
+        // Initialize array for multi-select customizations if not exists
+        if (!this.currentCustomizations[type]) {
+          this.currentCustomizations[type] = [];
+        }
+
+        const option = item.customizationOptions
+          .find(group => group.type === type)
+          .options.find(opt => opt.id === optionId);
+
+        if (checkboxInput.checked) {
+          this.currentCustomizations[type].push({
+            id: option.id,
+            name: option.name,
+            price: option.price
+          });
+        } else {
+          this.currentCustomizations[type] = this.currentCustomizations[type].filter(
+            opt => opt.id !== optionId
+          );
+          if (this.currentCustomizations[type].length === 0) {
+            delete this.currentCustomizations[type];
+          }
+        }
+      }
     });
-    
-    // Show the modal
-    this.toggleCustomizationModal(true);
+  });
+
+  // Show the modal
+  this.toggleCustomizationModal(true);
   }
   
   /**
